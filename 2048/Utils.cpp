@@ -31,14 +31,21 @@ HFONT createFont(int height) {
 
 // 将时间(单位：百分之一秒)转换成宽字符串(长度为8位)
 void getTimeStringByValue(UINT time, LPCWSTR result) {
-	int hSeconds = time % 100;
+	// int hSeconds = time % 100;
 	time /= 100;
 	int seconds = time % 60;
 	time /= 60;
 	int minutes = time % 60;
 
 	WCHAR buffer[10];
-	wsprintfW(buffer, L"0%d:%d:%d", minutes, seconds, hSeconds);
+	wsprintfW(buffer, L"0%d:%d", minutes, seconds);
+
+	if (seconds < 10) {
+		buffer[5] = buffer[4];
+		buffer[4] = buffer[3];
+		buffer[3] = L'0';
+	}
+
 	memcpy((void *)result, buffer, sizeof(buffer));
 }
 

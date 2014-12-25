@@ -86,6 +86,7 @@ private:
 
 public:
     void restart();
+	void stop();
     
 #pragma mark -
 #pragma mark View

@@ -452,6 +452,10 @@ void Game::restart() {
     this->initChessboard(); // Init chessboard
 }
 
+void Game::stop() {
+	this->over = true;
+}
+
 #pragma mark -
 #pragma mark Is over or won?
 bool Game::isOver() const {

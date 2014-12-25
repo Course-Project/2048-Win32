@@ -146,7 +146,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		time = 5 * 60 * 100;
 
 		// Set timer
-		timerID = SetTimer(hWnd, NULL, USER_TIMER_MINIMUM, TimerProc);
+		timerID = SetTimer(hWnd, NULL, 1000, TimerProc);
 		break;
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
@@ -173,7 +173,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (!game->canMove(MoveCommandLeft)) break;
 			game->doMove(MoveCommandLeft);
 			InvalidateRect(hWnd, &game->chessboardRect, true);
-			InvalidateRect(hWnd, &game->scoreLabelRect, true);
+			InvalidateRect(hWnd, &game->scoreLabelRect, false);
 			break;
 		case 'D':
 		case 'L':
@@ -181,7 +181,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (!game->canMove(MoveCommandRight)) break;
 			game->doMove(MoveCommandRight);
 			InvalidateRect(hWnd, &game->chessboardRect, true);
-			InvalidateRect(hWnd, &game->scoreLabelRect, true);;
+			InvalidateRect(hWnd, &game->scoreLabelRect, false);;
 			break;
 		case 'W':
 		case 'K':
@@ -189,7 +189,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (!game->canMove(MoveCommandUp)) break;
 			game->doMove(MoveCommandUp);
 			InvalidateRect(hWnd, &game->chessboardRect, true);
-			InvalidateRect(hWnd, &game->scoreLabelRect, true);
+			InvalidateRect(hWnd, &game->scoreLabelRect, false);
 			break;
 		case 'S':
 		case 'J':
@@ -197,7 +197,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if (!game->canMove(MoveCommandDown)) break;
 			game->doMove(MoveCommandDown);
 			InvalidateRect(hWnd, &game->chessboardRect, true);
-			InvalidateRect(hWnd, &game->scoreLabelRect, true);
+			InvalidateRect(hWnd, &game->scoreLabelRect, false);
 			break;
 		case 'R':
 			if (game->isTerminated()) game->restart();
@@ -280,7 +280,11 @@ INT_PTR CALLBACK Info(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		if (game->isWon()) {
 			wsprintfW(buffer, L"You win!!!\nYour score: %d", game->getScore());
 		} else {
-			wsprintfW(buffer, L"You lose :(\nYour score: %d", game->getScore());
+			if (time == 0) {
+				wsprintfW(buffer, L"Time is over! You lose :(\nYour score: %d", game->getScore());
+			} else {
+				wsprintfW(buffer, L"You lose :(\nYour score: %d", game->getScore());
+			}
 		}
 
 		SendMessage(stDisplay, WM_SETTEXT, NULL, (WPARAM)buffer);
@@ -307,7 +311,8 @@ INT_PTR CALLBACK Info(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 VOID CALLBACK TimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime) {
-	time--;
+	time -= 100;
+	if (time == 0) game->stop(); // Stop game
 	RECT timeRect = game->scoreLabelRect;
 	long width = getRectWidth(timeRect);
 	timeRect.left -= width;
