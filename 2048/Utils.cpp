@@ -22,6 +22,8 @@ void drawRoundRect(HDC hdc, RECT cellRect, COLORREF bgColor) {
 	SelectObject(hdc, brush);
 	SelectObject(hdc, pen);
 	RoundRect(hdc, cellRect.left, cellRect.top, cellRect.right, cellRect.bottom, 10, 10);
+	DeleteObject(brush);
+	DeleteObject(pen);
 }
 
 // 创建固定字体，高度不同
@@ -63,6 +65,7 @@ void drawNumberOnCell(HDC hdc, RECT cellRect, const int &number, COLORREF fontCo
 	wchar_t buffer[256];
 	wsprintfW(buffer, L"%d", number);
 	DrawText(hdc, buffer, -1, &cellRect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+	DeleteObject(font);
 }
 
 void drawNumberOnRect(HDC hdc, RECT rect, const int &number, COLORREF fontColor) {	
@@ -74,6 +77,7 @@ void drawNumberOnRect(HDC hdc, RECT rect, const int &number, COLORREF fontColor)
 	wchar_t buffer[256];
 	wsprintfW(buffer, L"%d", number);
 	DrawText(hdc, buffer, -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+	DeleteObject(font);
 }
 
 void drawNumberOnTimeLabel(HDC hdc, RECT rect, LPCWSTR pWStr, COLORREF fontColor) {	
@@ -83,4 +87,5 @@ void drawNumberOnTimeLabel(HDC hdc, RECT rect, LPCWSTR pWStr, COLORREF fontColor
 	SelectObject(hdc, font); // Set font
 
 	DrawText(hdc, pWStr, -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+	DeleteObject(font);
 }

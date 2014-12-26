@@ -540,6 +540,16 @@ void Game::drawTopBar(HDC hdc) const {
 
 	// Draw score label
 	this->drawScoreLabel(hdc);
+
+	// Draw time rect bg
+	// Draw time
+	RECT timeRect = this->scoreLabelRect;
+	long width = getRectWidth(timeRect);
+	timeRect.left -= width;
+	timeRect.right -= width;
+
+	// Draw bg round rect
+	drawRoundRect(hdc, timeRect, RGB(187, 173, 160));
 }
 
 void Game::drawLogoText(HDC hdc) const {
@@ -565,6 +575,8 @@ void Game::drawScoreLabel(HDC hdc) const {
 	SelectObject(hdc, font); // Set font
 
 	DrawText(hdc, TEXT("SCORE"), -1, &scoreLabelRect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+	
+	DeleteObject(font);
 
 	// Draw score
 	scoreLabelRect.top += (scoreLabelHeight * 0.3);

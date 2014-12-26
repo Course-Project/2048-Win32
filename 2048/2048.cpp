@@ -206,8 +206,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 
-		if (game->isTerminated())
+		if (game->isTerminated()) {
+			KillTimer(hWnd, timerID); // Kill timer
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_MY2048_DIALOG), hWnd, Info); // Game over or win
+		}
+			
 
 		break;
 	case WM_PAINT: {
@@ -226,9 +229,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		long width = getRectWidth(timeRect);
 		timeRect.left -= width;
 		timeRect.right -= width;
-
-		// Draw bg round rect
-		drawRoundRect(hdc, timeRect, RGB(187, 173, 160));
 
 		// Draw time
 		WCHAR buffer[10];
@@ -292,12 +292,23 @@ INT_PTR CALLBACK Info(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		return (INT_PTR)TRUE;
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDRETRY) {
-			// Restart the game
 			HWND hParentWnd = GetParent(hDlg);
+
+			time = 5 * 60 * 100;
+			timerID = SetTimer(hParentWnd, NULL, 1000, TimerProc); // Reset timer
+
+			// Restart the game
 			game->restart(); // Restart
 			EndDialog(hDlg, LOWORD(wParam)); // Close dialog
-			InvalidateRect(hParentWnd, &game->chessboardRect, true); // Repaint
-			InvalidateRect(hParentWnd, &game->scoreLabelRect, true); // Repaint
+			InvalidateRect(hParentWnd, &game->chessboardRect, true); // Repaint chessboard
+			InvalidateRect(hParentWnd, &game->scoreLabelRect, false); // Repaint score label
+
+			RECT timeRect = game->scoreLabelRect;
+			long width = getRectWidth(timeRect);
+			timeRect.left -= width;
+			timeRect.right -= width;
+			InvalidateRect(hParentWnd, &timeRect, false); // Repatin timer
+
 			return (INT_PTR)TRUE;
 		} else if (LOWORD(wParam) == IDNO) {
 			HWND hParentWnd = GetParent(hDlg);
@@ -311,8 +322,14 @@ INT_PTR CALLBACK Info(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 VOID CALLBACK TimerProc(HWND hwnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime) {
+	if (game->isTerminated()) return;
+
+	if (time == 0) {
+		game->stop(); // Stop game
+		return;
+	}
+
 	time -= 100;
-	if (time == 0) game->stop(); // Stop game
 	RECT timeRect = game->scoreLabelRect;
 	long width = getRectWidth(timeRect);
 	timeRect.left -= width;
