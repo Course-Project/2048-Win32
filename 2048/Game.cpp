@@ -542,7 +542,6 @@ void Game::drawTopBar(HDC hdc) const {
 	this->drawScoreLabel(hdc);
 
 	// Draw time rect bg
-	// Draw time
 	RECT timeRect = this->scoreLabelRect;
 	long width = getRectWidth(timeRect);
 	timeRect.left -= width;

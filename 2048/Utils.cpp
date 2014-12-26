@@ -40,13 +40,13 @@ void getTimeStringByValue(UINT time, LPCWSTR result) {
 	int minutes = time % 60;
 
 	WCHAR buffer[10];
-	wsprintfW(buffer, L"0%d:%d", minutes, seconds);
+	wsprintfW(buffer, L"%02d:%02d", minutes, seconds);
 
-	if (seconds < 10) {
-		buffer[5] = buffer[4];
-		buffer[4] = buffer[3];
-		buffer[3] = L'0';
-	}
+	//if (seconds < 10) {
+	//	buffer[5] = buffer[4];
+	//	buffer[4] = buffer[3];
+	//	buffer[3] = L'0';
+	//}
 
 	memcpy((void *)result, buffer, sizeof(buffer));
 }

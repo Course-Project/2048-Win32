@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #define MAX_LOADSTRING 100
+#define MAX_TIME 15 * 60 * 100
 
 // 全局变量: 
 HINSTANCE hInst;								// 当前实例
@@ -143,7 +144,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		game = new Game();
 
 		// Init time
-		time = 5 * 60 * 100;
+		time = MAX_TIME;
 
 		// Set timer
 		timerID = SetTimer(hWnd, NULL, 1000, TimerProc);
@@ -294,7 +295,7 @@ INT_PTR CALLBACK Info(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 		if (LOWORD(wParam) == IDRETRY) {
 			HWND hParentWnd = GetParent(hDlg);
 
-			time = 5 * 60 * 100;
+			time = MAX_TIME;
 			timerID = SetTimer(hParentWnd, NULL, 1000, TimerProc); // Reset timer
 
 			// Restart the game
