@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 long getRectWidth(RECT rect);
 long getRectHeight(RECT rect);

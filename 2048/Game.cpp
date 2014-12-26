@@ -1,4 +1,4 @@
-//
+ï»¿//
 //  Game.cpp
 //  2048
 //
@@ -594,12 +594,12 @@ void Game::drawChessboard(HDC hdc) const {
 
 	//long spacing = gridWidth / 4;
 
-	//// »æÖÆÊúÏß
+	//// ç»˜åˆ¶ç«–çº¿
 	//for (int i = left; i <= right; i += spacing) {
 	//	drawLine(hdc, i, top, i, bottom);
 	//}
 
-	//// »æÖÆºáÏß
+	//// ç»˜åˆ¶æ¨ªçº¿
 	//for (int i = top; i <= bottom; i += spacing) {
 	//	drawLine(hdc, left, i, right, i);
 	//}

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include <cmath>
 
 long getRectWidth(RECT rect) {
@@ -9,13 +9,13 @@ long getRectHeight(RECT rect) {
 	return rect.bottom - rect.top;
 }
 
-// »­Ïß
+// ç”»çº¿
 void drawLine(HDC hdc, int x1, int y1, int x2, int y2) {
 	MoveToEx(hdc, x1, y1, NULL);
 	LineTo(hdc, x2, y2);
 }
 
-// »­Ô²½Ç¾ØĞÎ
+// ç”»åœ†è§’çŸ©å½¢
 void drawRoundRect(HDC hdc, RECT cellRect, COLORREF bgColor) {
 	HBRUSH brush = CreateSolidBrush(bgColor);
 	HPEN pen = CreatePen(PS_NULL, 0, NULL);
@@ -26,12 +26,12 @@ void drawRoundRect(HDC hdc, RECT cellRect, COLORREF bgColor) {
 	DeleteObject(pen);
 }
 
-// ´´½¨¹Ì¶¨×ÖÌå£¬¸ß¶È²»Í¬
+// åˆ›å»ºå›ºå®šå­—ä½“ï¼Œé«˜åº¦ä¸åŒ
 HFONT createFont(int height) {
 	return CreateFont(height, 0, 0, 0, FW_BLACK, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, FF_ROMAN, TEXT("Arial"));
 }
 
-// ½«Ê±¼ä(µ¥Î»£º°Ù·ÖÖ®Ò»Ãë)×ª»»³É¿í×Ö·û´®(³¤¶ÈÎª8Î»)
+// å°†æ—¶é—´(å•ä½ï¼šç™¾åˆ†ä¹‹ä¸€ç§’)è½¬æ¢æˆå®½å­—ç¬¦ä¸²(é•¿åº¦ä¸º8ä½)
 void getTimeStringByValue(UINT time, LPCWSTR result) {
 	// int hSeconds = time % 100;
 	time /= 100;
@@ -51,7 +51,7 @@ void getTimeStringByValue(UINT time, LPCWSTR result) {
 	memcpy((void *)result, buffer, sizeof(buffer));
 }
 
-// »­Êı×Ö
+// ç”»æ•°å­—
 void drawNumberOnCell(HDC hdc, RECT cellRect, const int &number, COLORREF fontColor) {
 	int fontSize = log2(number);
 
