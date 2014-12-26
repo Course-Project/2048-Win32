@@ -46,6 +46,9 @@ build/
 *.log
 *.scc
 
+# CodeMap
+*.dgml
+
 # Visual C++ cache files
 ipch/
 *.aps
