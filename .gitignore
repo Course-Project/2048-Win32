@@ -49,6 +49,9 @@ build/
 # CodeMap
 *.dgml
 
+# Class Diagram
+*.cd
+
 # Visual C++ cache files
 ipch/
 *.aps
