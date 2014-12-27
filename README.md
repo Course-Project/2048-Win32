@@ -71,17 +71,17 @@
 
 1. 主界面
 
-<div style="margin: 0 auto; width: 400px;"><img style="width: 100%;" src="https://raw.githubusercontent.com/h1994st/2048-Win32/master/img/index.PNG" alt="主界面"></div>
+	<div style="margin: 0 auto; width: 400px;"><img style="width: 100%;" src="https://raw.githubusercontent.com/h1994st/2048-Win32/master/img/index.PNG" alt="主界面"></div>
 
-主界面右上方会显示倒计时和分数
+	主界面右上方会显示倒计时和分数
 
 2. 游戏结束
 
-<div style="margin: 0 auto; width: 400px;"><img style="width: 100%;" src="https://raw.githubusercontent.com/h1994st/2048-Win32/master/img/3.PNG" alt="游戏失败"></div>
+	<div style="margin: 0 auto; width: 400px;"><img style="width: 100%;" src="https://raw.githubusercontent.com/h1994st/2048-Win32/master/img/3.PNG" alt="游戏失败"></div>
 
-游戏结束后弹出的窗口中会告诉用户游戏情况(成功/失败/超时)，同时也会显示分数
+	游戏结束后弹出的窗口中会告诉用户游戏情况(成功/失败/超时)，同时也会显示分数
 
-弹出的窗口中有两个按钮："再来一局"和"退出"。如果按"再来一局"，弹窗会关闭，游戏所有数据将会重置，玩家重新开始游戏；如果按"退出"，将直接退出整个程序
+	弹出的窗口中有两个按钮："再来一局"和"退出"。如果按"再来一局"，弹窗会关闭，游戏所有数据将会重置，玩家重新开始游戏；如果按"退出"，将直接退出整个程序
 
 ## 程序架构
 
