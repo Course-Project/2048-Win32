@@ -225,7 +225,7 @@ Game::~Game() {
 #pragma mark -
 #pragma mark Actions
 void Game::doMove(const MoveCommand cmd) {
-    if (!this->canMove(cmd)) return;
+    // if (!this->canMove(cmd)) return;
     
     switch (cmd) {
         case MoveCommandLeft:
@@ -247,7 +247,7 @@ void Game::doMove(const MoveCommand cmd) {
     std::cout << (cmd == MoveCommandUp ? "Move Up" : (cmd == MoveCommandDown ? "Move Down" : (cmd == MoveCommandLeft ? "Move Left" : "Move Right"))) << std::endl;
     this->addRandomCell();
     
-	if (this->numberOfEmptyCells == 0 && !this->canMove())  this->over = true; // Game over
+	if (this->numberOfEmptyCells == 0 && !this->canMove()) this->over = true; // Game over
     
     this->print();
 }
